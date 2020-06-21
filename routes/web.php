@@ -23,4 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => ''], function () {
     Route::get('/frequency', 'WordFrequencyController@index')->name('wordFrequency.index');
+    Route::post('/frequency/submitInput' ,'WordFrequencyController@submitInput')->name('wordFrequency.submitInput');
+    Route::post('/frequency/import', 'WordFrequencyController@import')->name('wordFrequency.import');
+    Route::post('/frequency/export', 'WordFrequencyController@export')->name('wordFrequency.export');
 });

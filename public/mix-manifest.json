@@ -1,4 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/wordFrequency.css": "/css/wordFrequency.css",
+    "/css/app.css": "/css/app.css",
+    "/js/dropzone.js": "/js/dropzone.js",
+    "/js/wordFrequency.js": "/js/wordFrequency.js"
 }
