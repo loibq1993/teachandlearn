@@ -3,13 +3,22 @@
 namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class WordFrequencyExport implements FromArray
+class WordFrequencyExport implements FromArray, WithHeadings
 {
-    protected $id;
+    protected $data;
 
-    function __construct($id) {
-        $this->id = $id;
+    function __construct($data) {
+        $this->data = $data;
+    }
+
+    public function headings(): array
+    {
+        return [
+            'Word',
+            'Times',
+        ];
     }
 
     /**
@@ -17,9 +26,10 @@ class WordFrequencyExport implements FromArray
      */
     public function array(): array
     {
-        return [
-            [1, 2, 3],
-            [4, 5, 6]
-        ];
+        $export = [];
+        foreach ($this->data as $key => $value) {
+            $export[] = [$value->word, $value->times];
+        }
+        return $export;
     }
 }

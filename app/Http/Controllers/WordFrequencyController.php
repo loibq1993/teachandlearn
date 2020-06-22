@@ -102,18 +102,38 @@ class WordFrequencyController extends Controller
 
     public function export(Request $request)
     {
-        $data = $this->submitInput($request);
-        $fileName = 'document.xlsx';
-        if (isset($request->file)) {
-            $fileName = '';
-        }
-        return Excel::download(new WordFrequencyExport, $fileName);
+        $data = (array)json_decode($request->data);
+        $fileName = $request->filename;
+        ob_end_clean(); // this
+        ob_start(); // and this
+        $myFile = Excel::raw(new WordFrequencyExport($data), \Maatwebsite\Excel\Excel::XLS);
+        $response =  array(
+            'name' => $fileName, //no extention needed
+            'file' => "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,".base64_encode($myFile) //mime type of used format
+        );
+        return response()->json($response);
     }
 
     public function  import(Request $request)
     {
-        $phpWord = IOFactory::createReader('Word2007')->load($request->file('file')->path());
-        dd($phpWord);
+        $phpWord = IOFactory::load($request->file('file')->path());
+        $sections = $phpWord->getSections();
+        $text = '';
+        foreach ($sections as $key => $value) {
+            $sectionElement = $value->getElements();
+            foreach ($sectionElement as $elementKey => $elementValue) {
+                if ($elementValue instanceof \PhpOffice\PhpWord\Element\TextRun) {
+                    $secondSectionElement = $elementValue->getElements();
+                    foreach ($secondSectionElement as $secondSectionElementKey => $secondSectionElementValue) {
+                        if ($secondSectionElementValue instanceof \PhpOffice\PhpWord\Element\Text) {
+                            $text = $text.$secondSectionElementValue->getText();
+                        }
+                    }
+                }
+            }
+        }
+
+        return response()->json($this->count($text), 200);
     }
 
     public function submitInput(Request $request)

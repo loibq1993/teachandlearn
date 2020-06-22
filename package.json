@@ -42,6 +42,8 @@
     "datatables.net": "^1.10.21",
     "datatables.net-bs4": "^1.10.21",
     "datatables.net-dt": "^1.10.21",
+    "dropzone": "^5.7.1",
+    "node-sass": "^4.14.1",
     "popper.js": "^1.16.1"
   }
 }

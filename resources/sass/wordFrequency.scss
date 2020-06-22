@@ -1,11 +1,30 @@
 .body {
+    #tab {
+        font-weight: bold;
+    }
     #text {
         .result {
             .dataTables_wrapper {
-                .export-one {
+                #wordFrequency {
+                    tr {
+                        td:first-child, th:first-child {
+                            width:10px!important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #upload {
+        .download-link {
+            .download-info {
+                margin-top: 20px;
+                h3 {
+                    width: 50%;
+                    float: left;
+                }
+                button {
                     float: right;
-                    margin-left: 20px;
-                    padding:0.1rem 0.75rem
                 }
             }
         }

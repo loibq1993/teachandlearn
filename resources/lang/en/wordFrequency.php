@@ -2,7 +2,10 @@
 return [
     'title' => 'Word Frequency Counter',
     'tab' => [
-        'tab-text' => 'Text',
-        'tab-upload' => 'Upload file'
+        'nav-text' => 'Text',
+        'nav-upload' => 'Upload file',
+        'tab-text' => [
+            'title' => 'Paste your text'
+        ]
     ]
 ];

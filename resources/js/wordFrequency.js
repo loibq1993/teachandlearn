@@ -7,9 +7,6 @@ $(document).ready(function() {
     var dataSet;
     $('#text form #button').click(function (e) {
         let form = $('#text form');
-        let button = '<a href="/frequency/export" download="" target="_blank" class="export-one btn btn-info">\n' +
-            '                            <i class="fa fa-download"></i> Export excel' +
-            '                        </a>';
         var table = `<div class="result">
                         <h3>Result</h3>
                         <table id="wordFrequency" class="display" style="width:100%">
@@ -32,13 +29,22 @@ $(document).ready(function() {
                             { title: "Word", targets: 1 },
                             { title: "Times", targets: 2 },
                         ],
-                        aoColumns: [  //// 7 columns as Datatable
+                        aoColumns: [
                             { "mData": null },
                             { "mData": "word" },
                             { "mData": "times" },
                         ],
+                        dom: 'Bfrtip',
+                        buttons: [
+                            {
+                                extend: 'excelHtml5',
+                                footer: true,
+                                exportOptions: {
+                                    columns: [1,2]
+                                }
+                            },
+                        ]
                     } );
-                    $("div.fg-toolbar").prepend($(button));
                     t.on( 'order.dt search.dt', function () {
                         t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
                             cell.innerHTML = i+1;
@@ -47,16 +53,39 @@ $(document).ready(function() {
                 }
             });
     });
-
-    $('.export-one').click(function(e) {
-        $.ajax(
-            {
-                url: "/frequency/submitInput",
-                type: "POST",
-                data: form.serialize(),
-                success: function(result){
-
-                }
-            })
-    })
 });
+Dropzone.autoDiscover = false;
+$(function() {
+    var myDropzone = new Dropzone(".dropzone");
+    $("div.download-link").delegate("button", "click", function(){
+        var formDownload = $(this).parents('form');
+        var filename = formDownload.find('h3').text();
+        $.ajax({
+                url: "/frequency/export",
+                type: "POST",
+                data: {
+                    data: decodeURIComponent(formDownload.find('input').val()),
+                    filename: filename
+                },
+                success: function (response, textStatus, request) {
+                    var a = document.createElement("a");
+                    a.href = response.file;
+                    a.download = response.name;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                },
+            })
+    });
+    myDropzone.on("success", function(file, response) {
+        let title = file.name.split('.').shift() + '.xlsx';
+        var download = '<form class="download-info" >\n' +
+            '                            <h3>'+title+'</h3>\n' +
+            '                            <input type="hidden" name="data" value="'+encodeURIComponent(JSON.stringify(response))+'">\n' +
+            '                            <button type="button" class="btn btn-success">Download</button>\n' +
+            '                            <div class="clearfix"></div>\n' +
+            '                        </form>';
+        $('.download-link').append(download);
+    });
+})
+
