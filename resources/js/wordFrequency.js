@@ -56,7 +56,11 @@ $(document).ready(function() {
 });
 Dropzone.autoDiscover = false;
 $(function() {
-    var myDropzone = new Dropzone(".dropzone");
+    var dropzoneOptions = {
+        acceptedFiles: ".doc,.docx",
+        addRemoveLinks: true,
+    }
+    var myDropzone = new Dropzone(".dropzone", dropzoneOptions);
     $("div.download-link").delegate("button", "click", function(){
         var formDownload = $(this).parents('form');
         var filename = formDownload.find('h3').text();
