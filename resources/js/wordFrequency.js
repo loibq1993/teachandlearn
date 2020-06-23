@@ -82,7 +82,7 @@ $(function() {
             })
     });
     myDropzone.on("success", function(file, response) {
-        let title = file.name.split('.').shift() + '.xlsx';
+        let title = file.name.split('.').shift() + '.xls';
         var download = '<form class="download-info" >\n' +
             '                            <h3>'+title+'</h3>\n' +
             '                            <input type="hidden" name="data" value="'+encodeURIComponent(JSON.stringify(response))+'">\n' +
