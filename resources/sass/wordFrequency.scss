@@ -15,25 +15,4 @@
             }
         }
     }
-    #upload {
-        .dropzone {
-            .dz-preview {
-                .dz-error-message {
-                    top: 150px!important;
-                }
-            }
-        }
-        .download-link {
-            .download-info {
-                margin-top: 20px;
-                h3 {
-                    width: 50%;
-                    float: left;
-                }
-                button {
-                    float: right;
-                }
-            }
-        }
-    }
 }

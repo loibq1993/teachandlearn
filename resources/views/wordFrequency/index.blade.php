@@ -1,15 +1,12 @@
 @section('title', 'Word frequency')
 @extends('layouts.master')
 @section('css')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/dropzone.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/wordFrequency.css') }}">
 @stop
 @section('content')
     <div class="container py-4">
         <h1>{{__('wordFrequency.title')}}</h1>
-        <div class="body wordFrequencyCounter">
+        <div class="body" id="wordFrequencyCounter">
             <ul class="nav nav-tabs mb-3" id="tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <a class="nav-link active" id="upload-tab" data-toggle="tab" href="#text" role="tab" aria-controls="tab-text" aria-selected="true">{{__('wordFrequency.tab.nav-text')}}</a>
@@ -51,10 +48,5 @@
     </div>
 @endsection
 @section('javascript')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/dropzone.min.js"></script>
     <script src="{{ asset('js/wordFrequency.js') }}"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
 @stop

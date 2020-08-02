@@ -1,9 +1,4 @@
 $(document).ready(function() {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
     var dataSet;
     $('#text form #button').click(function (e) {
         let form = $('#text form');
@@ -54,42 +49,4 @@ $(document).ready(function() {
             });
     });
 });
-Dropzone.autoDiscover = false;
-$(function() {
-    var dropzoneOptions = {
-        acceptedFiles: ".doc,.docx",
-        addRemoveLinks: true,
-    }
-    var myDropzone = new Dropzone(".dropzone", dropzoneOptions);
-    $("div.download-link").delegate("button", "click", function(){
-        var formDownload = $(this).parents('form');
-        var filename = formDownload.find('h3').text();
-        $.ajax({
-                url: "/frequency/export",
-                type: "POST",
-                data: {
-                    data: decodeURIComponent(formDownload.find('input').val()),
-                    filename: filename
-                },
-                success: function (response, textStatus, request) {
-                    var a = document.createElement("a");
-                    a.href = response.file;
-                    a.download = response.name;
-                    document.body.appendChild(a);
-                    a.click();
-                    a.remove();
-                },
-            })
-    });
-    myDropzone.on("success", function(file, response) {
-        let title = file.name.split('.').shift() + '.xls';
-        var download = '<form class="download-info" >\n' +
-            '                            <h3>'+title+'</h3>\n' +
-            '                            <input type="hidden" name="data" value="'+encodeURIComponent(JSON.stringify(response))+'">\n' +
-            '                            <button type="button" class="btn btn-success">Download</button>\n' +
-            '                            <div class="clearfix"></div>\n' +
-            '                        </form>';
-        $('.download-link').append(download);
-    });
-})
 

@@ -13,6 +13,7 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/wordFrequency.js', 'public/js')
+    .js('resources/js/exportDropzone.js', 'public/js')
     .js('resources/js/dropzone.js', 'public/js')
     .copy('resources/sass/dropzone.css', 'public/css')
     .sass('resources/sass/wordFrequency.scss', 'public/css')
