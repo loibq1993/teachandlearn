@@ -1,20 +1,27 @@
 Dropzone.autoDiscover = false;
 $(function() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
     let dzParent = $('.container.py-4').children('.body').attr('id');
-    let url = $('form.dropzone').attr('action');
-    let exportFile;
+    let uploadFileType;
+    let url;
     switch (dzParent) {
         case 'wordFrequencyCounter':
-            exportFile = ".doc,.docx";
+            uploadFileType = ".doc,.docx";
+            url = window.location.href+'/export';
             break;
         case 'flashCard':
-            exportFile = ".xls,.xslx";
+            uploadFileType = ".xls,.xlsx";
+            url = window.location.href+'/export/pdf';
             break;
         default :
             break;
     }
     const dropzoneOptions = {
-        acceptedFiles: exportFile,
+        acceptedFiles: uploadFileType,
         addRemoveLinks: true,
     };
     let myDropzone = new Dropzone(".dropzone", dropzoneOptions);
@@ -26,7 +33,9 @@ $(function() {
             type: "POST",
             data: {
                 data: decodeURIComponent(formDownload.find('input').val()),
-                filename: filename
+                filename: filename,
+                number: $('#number-card').val(),
+                fileType: $('#type').val()
             },
             success: function (response, textStatus, request) {
                 var a = document.createElement("a");
