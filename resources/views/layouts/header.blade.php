@@ -13,12 +13,11 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">{{ __('navbar.homepage') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('wordFrequency.index')}}">{{ __('navbar.word_frequency') }}</a>
-                    </li>
+                    @foreach(__('navbar.header') as $key => $value)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{$value['url']}}">{{ $value['title'] }}</a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>

@@ -19,11 +19,18 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');
-
 Route::group(['prefix' => ''], function () {
-    Route::get('/', 'WordFrequencyController@index')->name('wordFrequency.index');
+    Route::get('/', function() {
+        return view('welcome');
+    })->name('home');
+    Route::get('/frequency', 'WordFrequencyController@index')->name('wordFrequency.index');
     Route::post('/frequency/submitInput' ,'WordFrequencyController@submitInput')->name('wordFrequency.submitInput');
     Route::post('/frequency/import', 'WordFrequencyController@import')->name('wordFrequency.import');
     Route::post('/frequency/export', 'WordFrequencyController@export')->name('wordFrequency.export');
+    Route::get('/flash-card', 'FlashCardController@index')->name('flashCard.index');
+    Route::post('/flash-card/import', 'FlashCardController@import')->name('flashCard.import');
+    Route::post('/flash-card/export/pdf', 'FlashCardController@export')->name('flashCard.export.pdf');
+    Route::get('export', function (){
+        return view('flashCard.export');
+    });
 });
