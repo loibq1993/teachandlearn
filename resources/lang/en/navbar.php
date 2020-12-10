@@ -13,6 +13,10 @@ return [
         'flash_card' => [
             'title' =>  'Flash Cards',
             'url' => route('flashCard.index')
+        ],
+        'convert_multiple_choice' => [
+            'title' => 'Convert Multiple Choice',
+            'url' => route('convertMultipleChoice.index')
         ]
     ]
 ];
