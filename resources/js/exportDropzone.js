@@ -17,6 +17,10 @@ $(function() {
             uploadFileType = ".xls,.xlsx";
             url = window.location.href+'/export/pdf';
             break;
+        case 'convertMultipleChoice':
+            uploadFileType = ".xls,.xlsx";
+            url = window.location.href + '/export';
+            break;
         default :
             break;
     }
