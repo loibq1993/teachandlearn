@@ -66,7 +66,8 @@ class ConvertMultipleChoiceService
             $table = $section->addTable([
                 'indent' =>  new TblWidthComplexType(
                     \PhpOffice\PhpWord\Shared\Converter::inchToTwip(0.5)
-                    , TblWidth::TWIP)
+                    , TblWidth::TWIP),
+                'marginRight' => \PhpOffice\PhpWord\Shared\Converter::inchToTwip(0.5),
             ]);
             if ($maxAnswerLen < 30 && $countValue === 5) {
                 $this->answer(array_filter($answer), $alphabet, $count, $table, 3);
@@ -95,7 +96,7 @@ class ConvertMultipleChoiceService
                     if ($key === 0 || $key === 2) {
                         $table->addRow();
                     }
-                    $table->addCell()->addText($alphabet[$count++].'.'.$item);
+                    $table->addCell(\PhpOffice\PhpWord\Shared\Converter::inchToTwip(3.5))->addText($alphabet[$count++].'. '.$item);
                 }
                 break;
             case 3:
@@ -103,19 +104,19 @@ class ConvertMultipleChoiceService
                     if ($key === 0 || $key === 3) {
                         $table->addRow();
                     }
-                    $table->addCell()->addText($alphabet[$count++] . '.' . $item);
+                    $table->addCell(\PhpOffice\PhpWord\Shared\Converter::inchToTwip(2))->addText($alphabet[$count++] . '. ' . $item);
                 }
                 break;
             case 4:
                 $table->addRow();
                 foreach($value as $key => $item) {
-                    $table->addCell()->addText($alphabet[$count++] . '.' . $item);
+                    $table->addCell(\PhpOffice\PhpWord\Shared\Converter::inchToTwip(1.5))->addText($alphabet[$count++] . '. ' . $item);
                 }
                 break;
             default:
                 foreach($value as $key => $item) {
                     $table->addRow();
-                    $table->addCell()->addText($alphabet[$count++] . '.' . $item);
+                    $table->addCell()->addText($alphabet[$count++] . '. ' . $item);
                 }
                 break;
         }
